@@ -3,35 +3,48 @@ on:
   push: {}
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: npm install
+      - run: npm run check-format
+      - run: npm run check-lint
   build:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        neovim_version: ['0.6.1', nightly]
-        vscode_version: ['1.64.2', stable]
+        neovim_version: ["0.6.1", nightly]
+        vscode_version: ["1.64.2", stable]
     runs-on: ${{ matrix.os }}
+    needs: [check]
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Install Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - name: 'Setup neovim'
-      id: 'nvim'
-      uses: 'thinca/action-setup-vim@v1'
-      with:
-        vim_version: '${{ matrix.neovim_version }}'
-        vim_type: 'neovim'
-        download: always
-    - run: npm install
-    - run: xvfb-run -a npm test
-      env:
-        TEST_VSCODE_VERSION: ${{ matrix.vscode_version }}
-        TEST_NEOVIM_PATH: ${{ steps.vim.outputs.executable_path }}
-      if: runner.os == 'Linux'
-    - run: npm test
-      env:
-        TEST_VSCODE_VERSION: ${{ matrix.vscode_version }}
-        TEST_NEOVIM_PATH: ${{ steps.nvim.outputs.executable_path }}
-      if: runner.os != 'Linux'
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: "Setup neovim"
+        id: "nvim"
+        uses: "thinca/action-setup-vim@v1"
+        with:
+          vim_version: "${{ matrix.neovim_version }}"
+          vim_type: "neovim"
+          download: always
+      - run: npm install
+      - run: xvfb-run -a npm test
+        env:
+          TEST_VSCODE_VERSION: ${{ matrix.vscode_version }}
+          TEST_NEOVIM_PATH: ${{ steps.vim.outputs.executable_path }}
+        if: runner.os == 'Linux'
+      - run: npm test
+        env:
+          TEST_VSCODE_VERSION: ${{ matrix.vscode_version }}
+          TEST_NEOVIM_PATH: ${{ steps.nvim.outputs.executable_path }}
+        if: runner.os != 'Linux'
