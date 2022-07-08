@@ -27,7 +27,7 @@
         "${workspaceFolder}/out/**/*.js",
         "${workspaceFolder}/dist/**/*.js"
       ],
-      "preLaunchTask": "tasks: watch-tests"
+      "preLaunchTask": "tasks: build-tests"
     }
   ]
 }

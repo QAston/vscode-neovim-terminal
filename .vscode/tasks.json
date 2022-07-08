@@ -6,6 +6,7 @@
     {
       "type": "npm",
       "script": "watch",
+      // background matcher, needed for using this as pre-launch-tasks
       "problemMatcher": ["$ts-webpack-watch", "$tslint-webpack-watch"],
       "isBackground": true,
       "presentation": {
@@ -17,6 +18,7 @@
     {
       "type": "npm",
       "script": "watch-tests",
+      // background matcher, needed for using this as pre-launch-tasks
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
       "presentation": {
@@ -37,13 +39,34 @@
     },
     {
       "type": "npm",
+      "script": "compile",
+      "problemMatcher": "$ts-webpack",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "problemMatcher": "$tsc",
+      "script": "compile-tests",
+      "group": {
+        "kind": "build"
+      }
+    },
+    {
+      "type": "npm",
       "script": "test",
-      "group": "test"
+      "group": "test",
+      "dependsOn": ["tasks: build-tests"]
     },
     {
       "label": "tasks: watch-tests",
-      "dependsOn": ["npm: watch", "npm: watch-tests"],
-      "problemMatcher": []
+      "dependsOn": ["npm: watch", "npm: watch-tests"]
+    },
+    {
+      "label": "tasks: build-tests",
+      "dependsOn": ["npm: compile-tests", "npm: compile"]
     }
   ]
 }

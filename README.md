@@ -49,23 +49,32 @@ Added features X, Y, and Z.
 
 ---
 
+## Development instructions
+
+### Building the code
+
+Command pallet -> Run build task
+
+### Running tests
+
+Test runner is defined in `runTests.ts`. They run an embedded vscode instance.
+
+To run the tests:
+
+Command pallet -> Run test task
+
+### Launching a debug instance of vscode with the extensions
+
+Run and debug -> Select "Run Extension" -> Start Debugging (F5)
+
+A new instance of vscode will be launched with only this extension enabled.
+
+### Debugging tests
+
+Run and debug -> Select "Extension tests" -> Start Debuging(F5)
+
 ## Following extension guidelines
 
 Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
 
 - [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-- Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-- Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-- Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**

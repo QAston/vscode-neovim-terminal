@@ -1,7 +1,7 @@
 {
   "name": "neovim-terminal",
   "displayName": "neovim-terminal",
-  "description": "Use neovim to edit files using neovim in intergrated terminal",
+  "description": "Use neovim TUI in intergrated terminal",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.64.0"
