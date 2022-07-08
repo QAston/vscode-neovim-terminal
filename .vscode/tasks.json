@@ -40,7 +40,7 @@
     {
       "type": "npm",
       "script": "compile",
-      "problemMatcher": "$ts-webpack",
+      "problemMatcher": ["$ts-webpack", "$tslint-webpack"],
       "group": {
         "kind": "build",
         "isDefault": true

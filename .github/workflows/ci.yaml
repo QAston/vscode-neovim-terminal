@@ -9,9 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: ^16
+          node-version: 16.x
       - run: npm install
       - run: npm run check-format
       - run: npm run check-lint
@@ -27,9 +27,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: ^16
+          node-version: 16.x
       - name: "Setup neovim"
         id: "nvim"
         uses: "thinca/action-setup-vim@v1"
