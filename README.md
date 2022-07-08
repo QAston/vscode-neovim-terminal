@@ -1,53 +1,72 @@
-# neovim-terminal README
+# neovim-terminal
 
-This is the README for your extension "neovim-terminal". After writing up a brief description, we recommend including the following sections.
+Enjoy the full power of neovim and vscode and their plugin ecosystems.
 
-## Features
+"Neovim terminal" extension integrates vscode with neovim via builtin terminal emulation.
+This approach allows you to quickly access features of both editors
+while keeping the implementation simple and bug free.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Features/Goals
 
-For example if there is an image subfolder under your extension project workspace:
+MVP:
 
-\!\[feature X\]\(images/feature-x.png\)
+- a command that switches to a neovim terminal for currently open editor
+  - new neovim terminal in the current editor group if there's no terminal in the editor group
+  - reuse neovim terminal or alaways open a separate one?
+    - a terminal page should behave like vscode editor group, use neovim's "tabs"/"windows"?
+    - use exitsting neovim terminal if found, find open file
+- a neovim binding that is forwarded to vscode to switch open a vscode editor for the file
+  - if not open opens a new editor in the same group (I guess there's standard "open file" api call)
+- plugin executes on the remote side, remote side needs to have neovim installed (extensionKind: workspace)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Future possibilities:
+
+- variants/customizability of the switch commands that explicitly:
+  - find existing editors vs open new editors
+  - open in this group/terminal vs open in new group/terminal
+  - open new terminal in split window?
+  - how the editor should be opened in neovim (window vs tab)?
+- synchronize contents when switching?
+  - cursor position?
+  - selection?
+  - unsaved file changes? refresh/reload?
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+You need to have neovim installed on the machine vscode backend is running.  
+This means that you need to install it in the container if you're running a devcontainer.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+TODO.
 
-For example:
+## Similar projects
 
-This extension contributes the following settings:
+This project was made due to my dissatisfaction in some existing approaches.
+That said, you might still prefer to use one of those:
 
-- `myExtension.enable`: enable/disable this extension
-- `myExtension.thing`: set to `blah` to do something
+- [vscode-vim](https://github.com/VSCodeVim/Vim)
+  - vim keybinding emulation in typescript
+  - "native" to vscode, the only plugin which works in a web context
+  - works well as reimplementation of the keybindings
+  - doesn't support the neovim plugin ecosystem at all
+  - there are some vim plugins that were ported to javascript
+  - recommended if you really need vscode to follow vim keybindings
+  - can be used with neovim-terminal
+- [vscode-neovim](https://github.com/vscode-neovim/vscode-neovim)
+  - embed neovim in standard vscode text editor
+  - neovim is running in the background, so plugins and advanced commands/settings are actually accurate
+  - provides a compatibility and synchronization layer between neovim and vscode
+  - but actions on one side are often not properly represented/synchronized to other side
+  - compatibility takes a lot of work and sometimes there are no good answers to match the editors
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
+None
 
 ## Development instructions
 

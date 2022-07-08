@@ -9,6 +9,9 @@
   "categories": [
     "Other"
   ],
+  "extensionKind": [
+    "workspace"
+  ],
   "activationEvents": [
     "onCommand:neovim-terminal.helloWorld"
   ],
