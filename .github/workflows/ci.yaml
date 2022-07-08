@@ -9,9 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ^16
       - run: npm install
       - run: npm run check-format
       - run: npm run check-lint
@@ -19,17 +19,17 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        neovim_version: ["0.6.1", nightly]
-        vscode_version: ["1.64.2", stable]
+        neovim_version: ["0.7.2", nightly]
+        vscode_version: ["1.69.0", stable]
     runs-on: ${{ matrix.os }}
     needs: [check]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ^16
       - name: "Setup neovim"
         id: "nvim"
         uses: "thinca/action-setup-vim@v1"
@@ -38,13 +38,9 @@ jobs:
           vim_type: "neovim"
           download: always
       - run: npm install
-      - run: xvfb-run -a npm test
-        env:
-          TEST_VSCODE_VERSION: ${{ matrix.vscode_version }}
-          TEST_NEOVIM_PATH: ${{ steps.vim.outputs.executable_path }}
-        if: runner.os == 'Linux'
-      - run: npm test
-        env:
-          TEST_VSCODE_VERSION: ${{ matrix.vscode_version }}
-          TEST_NEOVIM_PATH: ${{ steps.nvim.outputs.executable_path }}
-        if: runner.os != 'Linux'
+      - run: echo TEST_VSCODE_VERSION="${{ matrix.vscode_version }}" >> $GITHUB_ENV
+      - run: echo TEST_NEOVIM_PATH="${{ steps.nvim.outputs.executable_path }}" >> $GITHUB_ENV
+      - name: Run tests
+        uses: GabrielBB/xvfb-action@v1.0
+        with:
+          run: "npm test"
