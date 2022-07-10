@@ -29,7 +29,8 @@ Future possibilities:
 - synchronize contents when switching?
   - cursor position?
   - selection?
-  - unsaved file changes? refresh/reload?
+  - unsaved file changes? refresh/reload? virtual vscode files? virtual vim files?
+- session saving and restoring
 
 ## Requirements
 
@@ -50,6 +51,7 @@ That said, you might still prefer to use one of those:
   - "native" to vscode, the only plugin which works in a web context
   - works well as reimplementation of the keybindings
   - doesn't support the neovim plugin ecosystem at all
+  - some commands use vscode semantics by design
   - there are some vim plugins that were ported to javascript
   - recommended if you really need vscode to follow vim keybindings
   - can be used with neovim-terminal
